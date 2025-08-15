@@ -1,0 +1,24 @@
+#version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_foro_hub
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: dario
+      MYSQL_DATABASE: foro_hub
+      MYSQL_USER: dario
+      MYSQL_PASSWORD: dario
+    ports:
+      - "0.0.0.0:3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:  # ⬅️ Agregamos un chequeo de salud
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-pdario"]
+      interval: 10s  # ⬅️ Verifica cada 10 segundos
+      retries: 5  # ⬅️ Reintenta 5 veces
+      start_period: 20s  # ⬅️ Espera hasta 20s para que arranque
+
+
+volumes:
+  mysql_data:
