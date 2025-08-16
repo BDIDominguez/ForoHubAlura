@@ -3,6 +3,7 @@ package com.forohubalura.forohubalura.service;
 import com.forohubalura.forohubalura.modelo.Topico;
 import com.forohubalura.forohubalura.repository.TopicoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,7 +14,11 @@ public class TopicoService {
     private TopicoRepository topicoRepository;
 
     public Topico crearTopico(Topico topico) {
-        return topicoRepository.save(topico);
+        try{
+            return topicoRepository.save(topico);
+        } catch (DataIntegrityViolationException e){
+            throw new IllegalArgumentException("Duplicado: el titulo y el mensaje ya existen");
+        }
     }
 
     public List<Topico> consultarTodos() {
