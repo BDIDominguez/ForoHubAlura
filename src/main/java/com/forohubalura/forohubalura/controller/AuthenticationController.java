@@ -1,6 +1,9 @@
 package com.forohubalura.forohubalura.controller;
 
 import com.forohubalura.forohubalura.DTO.DatosAutenticacion;
+import com.forohubalura.forohubalura.DTO.DatosTokenJWT;
+import com.forohubalura.forohubalura.configuraciones.TokenService;
+import com.forohubalura.forohubalura.modelo.Usuario;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,13 +19,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationController {
 
     @Autowired
+    private TokenService tokenService;
+
+    @Autowired
     private AuthenticationManager manager;
 
     @PostMapping
     public ResponseEntity iniciarSesion(@RequestBody @Valid DatosAutenticacion datos){
-        var token = new UsernamePasswordAuthenticationToken(datos.login(), datos.contraseña());
-        var autentication = manager.authenticate(token);
-        return ResponseEntity.ok().build();
+        var authenticationToken = new UsernamePasswordAuthenticationToken(datos.login(), datos.contraseña());
+        var autentication = manager.authenticate(authenticationToken);
+        var tokenJWT = tokenService.generarToken((Usuario) autentication.getPrincipal());
+        return ResponseEntity.ok(new DatosTokenJWT(tokenJWT));
     }
 
 }
