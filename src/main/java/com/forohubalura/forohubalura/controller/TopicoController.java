@@ -1,7 +1,6 @@
 package com.forohubalura.forohubalura.controller;
 
 import com.forohubalura.forohubalura.DTO.TopicoDTO;
-import com.forohubalura.forohubalura.DTO.TopicoDTOactualizador;
 import com.forohubalura.forohubalura.DTO.TopicoDTOconId;
 import com.forohubalura.forohubalura.modelo.Topico;
 import com.forohubalura.forohubalura.service.TopicoService;
