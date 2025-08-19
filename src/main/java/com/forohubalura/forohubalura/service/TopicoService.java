@@ -3,15 +3,12 @@ package com.forohubalura.forohubalura.service;
 import com.forohubalura.forohubalura.excepciones.RecursoNoEncontradoException;
 import com.forohubalura.forohubalura.modelo.Topico;
 import com.forohubalura.forohubalura.repository.TopicoRepository;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class TopicoService {
